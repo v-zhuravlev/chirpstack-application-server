@@ -18,7 +18,7 @@ import (
 
 // Config contains the configuration for the MyDevices endpoint.
 type Config struct {
-	URL string `json:"url"`
+	Endpoint string `json:"endpoint"`
 }
 
 // Integration implements a MyDevices integration.
@@ -114,13 +114,13 @@ func (i *Integration) SendDataUp(ctx context.Context, vars map[string]string, pl
 	}
 
 	log.WithFields(log.Fields{
-		"dev_eui": up.DevEUI,
-		"ctx_id":  ctx.Value(logging.ContextIDKey),
-		"url":     i.config.URL,
-		"event":   "up",
+		"dev_eui":  up.DevEUI,
+		"ctx_id":   ctx.Value(logging.ContextIDKey),
+		"endpoint": i.config.Endpoint,
+		"event":    "up",
 	}).Info("integration/mydevices: publishing event")
 
-	if err := i.send(i.config.URL, up); err != nil {
+	if err := i.send(i.config.Endpoint, up); err != nil {
 		return errors.Wrap(err, "send event error")
 	}
 

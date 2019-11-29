@@ -50,7 +50,7 @@ func (ts *IntegrationTestSuite) SetupSuite() {
 	ts.server = httptest.NewServer(ts.httpHandler)
 
 	conf := Config{
-		URL: ts.server.URL,
+		Endpoint: ts.server.URL,
 	}
 	var err error
 	ts.integration, err = New(conf)
