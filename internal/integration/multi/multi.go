@@ -19,6 +19,7 @@ import (
 	"github.com/brocaar/chirpstack-application-server/internal/integration/influxdb"
 	"github.com/brocaar/chirpstack-application-server/internal/integration/marshaler"
 	"github.com/brocaar/chirpstack-application-server/internal/integration/mqtt"
+	"github.com/brocaar/chirpstack-application-server/internal/integration/mydevices"
 	"github.com/brocaar/chirpstack-application-server/internal/integration/postgresql"
 	"github.com/brocaar/chirpstack-application-server/internal/integration/thingsboard"
 	"github.com/brocaar/chirpstack-application-server/internal/logging"
@@ -58,6 +59,8 @@ func New(m marshaler.Type, confs []interface{}) (*Integration, error) {
 			ii, err = postgresql.New(v)
 		case thingsboard.Config:
 			ii, err = thingsboard.New(v)
+		case mydevices.Config:
+			ii, err = mydevices.New(v)
 		default:
 			return nil, fmt.Errorf("unknown configuration type %T", conf)
 		}

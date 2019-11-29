@@ -15,6 +15,7 @@ import (
 	"github.com/brocaar/chirpstack-application-server/internal/integration/influxdb"
 	"github.com/brocaar/chirpstack-application-server/internal/integration/marshaler"
 	"github.com/brocaar/chirpstack-application-server/internal/integration/multi"
+	"github.com/brocaar/chirpstack-application-server/internal/integration/mydevices"
 	"github.com/brocaar/chirpstack-application-server/internal/integration/thingsboard"
 	"github.com/brocaar/chirpstack-application-server/internal/storage"
 )
@@ -139,6 +140,11 @@ func (i *Integration) getApplicationIntegration(ctx context.Context, id uint64) 
 				return nil, errors.Wrap(err, "decode thingsboard integration config error")
 			}
 			configs = append(configs, conf)
+		case integration.MyDevices:
+			var conf mydevices.Config
+			if err := json.NewDecoder(bytes.NewReader(appint.Settings)).Decode(&conf); err != nil {
+				return nil, errors.Wrap(err, "decode mydevlces integration config error")
+			}
 		default:
 			return nil, fmt.Errorf("unknown integration type: %s", appint.Kind)
 		}
