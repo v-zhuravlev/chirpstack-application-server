@@ -145,6 +145,7 @@ func (i *Integration) getApplicationIntegration(ctx context.Context, id uint64) 
 			if err := json.NewDecoder(bytes.NewReader(appint.Settings)).Decode(&conf); err != nil {
 				return nil, errors.Wrap(err, "decode mydevlces integration config error")
 			}
+			configs = append(configs, conf)
 		default:
 			return nil, fmt.Errorf("unknown integration type: %s", appint.Kind)
 		}

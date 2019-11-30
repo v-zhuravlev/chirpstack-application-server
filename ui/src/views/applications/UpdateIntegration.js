@@ -58,6 +58,16 @@ class UpdateIntegration extends Component {
           });
         });
         break;
+      case "mydevices":
+        ApplicationStore.getMyDevicesIntegration(this.props.match.params.applicationID, resp => {
+          let integration = resp.integration;
+          integration.kind = "mydevices";
+
+          this.setState({
+            integration: integration,
+          });
+        });
+        break;
       default:
         break;
     }
@@ -77,6 +87,11 @@ class UpdateIntegration extends Component {
         break;
       case "thingsboard":
         ApplicationStore.updateThingsBoardIntegration(integration, resp => {
+          this.props.history.push(`/organizations/${this.props.match.params.organizationID}/applications/${this.props.match.params.applicationID}/integrations`);
+        });
+        break;
+      case "mydevices":
+        ApplicationStore.updateMyDevicesIntegration(integration, resp => {
           this.props.history.push(`/organizations/${this.props.match.params.organizationID}/applications/${this.props.match.params.applicationID}/integrations`);
         });
         break;
@@ -100,6 +115,11 @@ class UpdateIntegration extends Component {
           break;
         case "thingsboard":
           ApplicationStore.deleteThingsBoardIntegration(this.props.match.params.applicationID, resp => {
+            this.props.history.push(`/organizations/${this.props.match.params.organizationID}/applications/${this.props.match.params.applicationID}/integrations`);
+          });
+          break;
+        case "mydevices":
+          ApplicationStore.deleteMyDevicesIntegration(this.props.match.params.applicationID, resp => {
             this.props.history.push(`/organizations/${this.props.match.params.organizationID}/applications/${this.props.match.params.applicationID}/integrations`);
           });
           break;

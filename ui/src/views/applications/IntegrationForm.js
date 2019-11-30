@@ -337,6 +337,34 @@ class ThingsBoardIntegrationForm extends FormComponent {
 ThingsBoardIntegrationForm = withStyles(styles)(ThingsBoardIntegrationForm);
 
 
+class MyDevicesIntegrationForm extends FormComponent {
+  onChange(e) {
+    super.onChange(e);
+  }
+  render() {
+    if (this.state.object === undefined) {
+      return null;
+    }
+
+    return(
+      <FormControl fullWidth margin="normal">
+        <FormLabel>MyDevices.com integration configuration</FormLabel>
+        <TextField
+          id="endpoint"
+          label="MyDevices.com API endpoint"
+          placeholder="http://host:port"
+          value={this.state.object.endpoint || ""}
+          onChange={this.onChange}
+          margin="normal"
+          required
+          fullWidth
+        />
+      </FormControl>
+    );
+  }
+}
+
+
 class IntegrationForm extends FormComponent {
   constructor() {
     super();
@@ -354,6 +382,7 @@ class IntegrationForm extends FormComponent {
     const kindOptions = [
       {value: "http", label: "HTTP integration"},
       {value: "influxdb", label: "InfluxDB integration"},
+      {value: "mydevices", label:"MyDevices.com"},
       {value: "thingsboard", label: "ThingsBoard.io"},
     ];
 
@@ -383,6 +412,7 @@ class IntegrationForm extends FormComponent {
         {this.state.object.kind === "http" && <HTTPIntegrationForm object={this.state.object} onChange={this.onFormChange} />}
         {this.state.object.kind === "influxdb" && <InfluxDBIntegrationForm object={this.state.object} onChange={this.onFormChange} />}
         {this.state.object.kind === "thingsboard" && <ThingsBoardIntegrationForm object={this.state.object} onChange={this.onFormChange} />}
+        {this.state.object.kind === "mydevices" && <MyDevicesIntegrationForm object={this.state.object} onChange={this.onFormChange} />}
       </Form>
     );
   }
